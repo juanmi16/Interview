@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Atenea.Api/Atenea.Api.csproj" />
+  <Project Path="Atenea.Application/Atenea.Application.csproj" />
+  <Project Path="Atenea.Domain/Atenea.Domain.csproj" />
+  <Project Path="Atenea.Infrastructure/Atenea.Infrastructure.csproj" />
+</Solution>

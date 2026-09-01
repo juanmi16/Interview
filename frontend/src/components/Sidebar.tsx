@@ -25,6 +25,16 @@ const nav: NavItem[] = [
     ),
   },
   {
+    label: 'Markets',
+    path: '/markets',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <path d="M3 3v18h18" />
+        <path d="M7 14l3-3 3 3 5-6" />
+      </svg>
+    ),
+  },
+  {
     label: 'Users',
     path: '/users',
     icon: (

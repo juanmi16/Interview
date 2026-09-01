@@ -10,7 +10,9 @@
 import axios from 'axios'
 
 export const http = axios.create({
-  baseURL: 'http://localhost:5000/api',   // TODO: confirmar el puerto real del backend
+  // Production: set VITE_API_URL to the deployed API URL (must end in /api).
+  // Development: falls back to the local backend.
+  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:5000/api',
 })
 
 // El interceptor corre ANTES de CADA request que salga por `http`:

@@ -56,17 +56,30 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// CORS: allow the React dev server (Vite on :5173) to call this API.
+// CORS: allowed frontend origins come from config ("Cors:Origins", comma-separated),
+// so the deployed frontend URL can be set on the host WITHOUT a code change.
+// Defaults to the local Vite dev servers.
+var corsOrigins = (builder.Configuration["Cors:Origins"]
+        ?? "http://localhost:5173,http://localhost:5174")
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:5173", "http://localhost:5174")
+        policy.WithOrigins(corsOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod());
-
 });
 
 var app = builder.Build();
+
+// Apply any pending EF migrations on startup, so the (cloud) database schema
+// is created/updated automatically the first time the app deploys.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

@@ -17,9 +17,9 @@ namespace Atenea.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<(List<User> items, int total)> GetAllUsers(int page, int pageSize)
+        public async Task<(List<User> items, int total)> GetAllUsers(int page, int pageSize, string? search)
         {
-            return await _userRepository.GetUsers(page, pageSize);
+            return await _userRepository.GetUsers(page, pageSize, search);
         }
 
         public async Task<User?> UpdateUser(int id, UpdateUserDto dto)
@@ -39,6 +39,19 @@ namespace Atenea.Application.Services
         public async Task<Boolean?> DeleteUser(int id)
         {
             return await _userRepository.DeleteUser(id);
+        }
+
+        public async Task<UserStatsDto> GetStats()
+        {
+            var (total, active, admins) = await _userRepository.GetStats();
+            return new UserStatsDto
+            {
+                Total = total,
+                Active = active,
+                Inactive = total - active,
+                Admins = admins,
+                Regular = total - admins
+            };
         }
 
     }

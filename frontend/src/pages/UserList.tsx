@@ -9,6 +9,7 @@ export default function UserList() {
     const [users, setUsers] = useState<User[]>([])
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
     const [userToDelete, setUserToDelete] = useState<User | null>(null)
+    const [search, setSearch] = useState('')
 
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
@@ -18,19 +19,20 @@ export default function UserList() {
     useEffect(() => {
         const loadUsers = async () => {
             try {
-                const data = await UserService.getAllUsers(page, pageSize)
+                const data = await UserService.getAllUsers(page, pageSize,search)
                 setUsers(data.items)
                 setTotal(data.total)
             } catch (error) {
                 console.error('Error fetching users:', error)
             }
         }
-        loadUsers()
-    }, [page])
+        const timer = setTimeout(loadUsers, 400)   // debounce: espera 400ms antes de buscar
+        return () => clearTimeout(timer)           // cancela el timer anterior si algo cambia
+    }, [page,search,pageSize])
 
     const totalPages = Math.ceil(total / pageSize)
 
-    
+
 
 
     return (
@@ -42,6 +44,12 @@ export default function UserList() {
                     <h1 className="text-2xl font-bold text-slate-800">Users</h1>
                     <p className="text-sm text-slate-500">Manage your platform members</p>
                 </div>
+                <input
+                    value={search}
+                    onChange={(e) => { setSearch(e.target.value); setPage(1) }}   // ← resetea a página 1
+                    placeholder="Search users..."
+                    className="w-64 px-4 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
                 <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-sm font-semibold ring-1 ring-indigo-100">
                     {users.length} total
                 </span>
@@ -63,7 +71,7 @@ export default function UserList() {
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {users.map((user) => {
-                                
+
                                 return (
                                     <UserRow
                                         key={user.id}
@@ -89,7 +97,7 @@ export default function UserList() {
 
                         <button
                             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                            disabled={page === totalPages} 
+                            disabled={page === totalPages}
                             className="px-3 py-1 rounded border disabled:opacity-40">Next</button>
                     </div>
                     <span>Showing {users.length} of {total}</span>

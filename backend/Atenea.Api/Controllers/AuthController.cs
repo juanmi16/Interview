@@ -29,9 +29,13 @@ namespace Atenea.Api.Controllers
             // 2) Create the user (the service hashes the password and saves it)
             var user = await _authService.CreateUser(dto);
 
-            // 3) Respond WITHOUT sensitive data
+            // 3) Auto-login: generamos el token para que quede AUTENTICADO al registrarse
+            var token = await _authService.Login(new LoginDto { Email = dto.Email, Password = dto.Password });
+
+            // 4) Respond con el token (+ datos no sensibles)
             return Ok(new
             {
+                token,
                 user.Id,
                 user.FirstName,
                 user.Email,

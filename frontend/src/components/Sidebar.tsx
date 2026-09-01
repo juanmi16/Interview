@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react'
 import { useAuth } from '../context/AuthContext'
 
@@ -38,38 +38,8 @@ const nav: NavItem[] = [
     isAdminOnly: true,
   },
   {
-    label: 'Markets',
-    path: '#',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-        <path d="M3 17l6-6 4 4 8-8" />
-        <path d="M15 7h6v6" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Portfolio',
-    path: '#',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 3v9h9" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Wallet',
-    path: '#',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-        <path d="M3 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" />
-        <path d="M16 12.5h.01" />
-      </svg>
-    ),
-  },
-  {
     label: 'Settings',
-    path: '#',
+    path: '/settings',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <line x1="4" y1="8" x2="20" y2="8" />
@@ -85,6 +55,7 @@ export default function Sidebar() {
   const { user, setToken, setUser } = useAuth()
   const initials = user?.name?.split(' ').map(w => w[0]).join('')
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <aside className="w-64 h-screen sticky top-0 flex flex-col overflow-hidden text-white
@@ -100,7 +71,7 @@ export default function Sidebar() {
           A
         </div>
         <span className="font-black tracking-tight text-lg">Atenea</span>
-        <span className="ml-auto text-[10px] font-semibold tracking-[0.25em] text-white/40">CRYPTO</span>
+        <span className="ml-auto text-[10px] font-semibold tracking-[0.25em] text-white/40">PORTAL</span>
       </div>
 
       {/* navegación */}
@@ -109,18 +80,20 @@ export default function Sidebar() {
           // ocultar items admin-only si el usuario NO es Admin
           if (item.isAdminOnly && user?.role !== 'Admin') return null
 
+          const isActive = item.path === location.pathname
+
           return (
             <Link
               key={item.label}
-              to={item.path}                 // ← usa el path del objeto, no "#"
+              to={item.path}
               className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition
-        ${item.active
+        ${isActive
                   ? 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-violet-900/40'
                   : 'text-white/55 hover:text-white hover:bg-white/5'}`}
             >
               {item.icon}
               {item.label}
-              {item.active && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white/90" />}
+              {isActive && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white/90" />}
             </Link>
           )
         })}

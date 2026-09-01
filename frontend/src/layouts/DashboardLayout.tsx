@@ -15,7 +15,7 @@ export default function DashboardLayout() {
       {open && <Sidebar />}
 
       {/* contenido + botón (el botón SIEMPRE visible) */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 bg-slate-50">
         <button
           onClick={() => setOpen(!open)}
           className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition text-xl">

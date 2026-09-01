@@ -22,6 +22,7 @@ export interface AuthUser {
 
 // What the backend returns after POST /auth/register
 export interface RegisterResponse {
+  token: string
   id: number
   firstName: string
   email: string

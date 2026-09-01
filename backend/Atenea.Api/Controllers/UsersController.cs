@@ -22,9 +22,9 @@ namespace Atenea.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet] // GET /api/users
-        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? search = null)
         {
-            var (users, total) = await _userService.GetAllUsers(page, pageSize);
+            var (users, total) = await _userService.GetAllUsers(page, pageSize, search);
 
             var items = users.Select(u => new
             {
@@ -40,6 +40,14 @@ namespace Atenea.Api.Controllers
             });
 
             return Ok(new { items, total, page, pageSize });
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("stats")] // GET /api/users/stats — aggregated counts for the dashboard
+        public async Task<IActionResult> GetStats()
+        {
+            var stats = await _userService.GetStats();
+            return Ok(stats);
         }
 
         [Authorize(Roles = "Admin")]

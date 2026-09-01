@@ -4,6 +4,7 @@ import DashboardPage from './pages/DashboardPage'
 import SignupPage from './pages/SignupPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import UserList from './pages/UserList'
+import SettingsPage from './pages/SettingsPage'
 import DashboardLayout from './layouts/DashboardLayout'
 
 
@@ -24,6 +25,7 @@ function App() {
             <UserList />
           </ProtectedRoute>
         } />
+        <Route path="/settings" element={<SettingsPage />} />
       </Route>
 
       {/* Catch-all al final */}

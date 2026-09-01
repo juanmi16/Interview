@@ -33,13 +33,23 @@ namespace Atenea.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
         }
 
-        public async Task<(List<User> items, int total)> GetUsers(int page, int pageSize)
+        public async Task<(List<User> items, int total)> GetUsers(int page, int pageSize, string? search)
         {
-            var query = _context.Users
-                .Include(x => x.Role)
-                .OrderByDescending(x => x.CreatedAt);
+            IQueryable<User> query = _context.Users.Include(x => x.Role);
 
-            var total = await query.CountAsync();          // total ANTES de rebanar
+            // filtro de búsqueda (nombre, apellido o email) — solo si hay término
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var s = search.ToLower();
+                query = query.Where(u =>
+                    u.FirstName.ToLower().Contains(s) ||
+                    u.LastName.ToLower().Contains(s) ||
+                    u.Email.ToLower().Contains(s));
+            }
+
+            query = query.OrderByDescending(x => x.CreatedAt);   // orden DESPUÉS del filtro
+
+            var total = await query.CountAsync();          // total del resultado FILTRADO
             var items = await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -76,6 +86,15 @@ namespace Atenea.Infrastructure.Repositories
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        // Aggregated counts computed in the database (COUNT queries, no data loaded).
+        public async Task<(int total, int active, int admins)> GetStats()
+        {
+            var total = await _context.Users.CountAsync();
+            var active = await _context.Users.CountAsync(u => u.IsActive);
+            var admins = await _context.Users.CountAsync(u => u.Role != null && u.Role.Name == "Admin");
+            return (total, active, admins);
         }
     }
 }

@@ -1,3 +1,7 @@
+/**
+ * To-do / Price-alert service. Wraps /api/todos: list my items, create,
+ * toggle "done", and delete. Every call is scoped to the token user by the API.
+ */
 import { BaseService } from "./BaseService"
 import { http } from "./http"
 import type { Todo } from "../types/todo"

@@ -1,3 +1,10 @@
+/**
+ * Left navigation sidebar (shown on every private page via DashboardLayout).
+ *
+ * Renders the items from the `nav` array; the active one is highlighted from
+ * the current URL (useLocation). Admin-only items are hidden for non-admins.
+ * The bottom shows the user card + a Log out button that clears the session.
+ */
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react'
 import { useAuth } from '../context/AuthContext'

@@ -1,3 +1,12 @@
+/**
+ * Route table for the app.
+ *
+ * - Public routes: /login, /signup.
+ * - Private routes: nested under a layout route. The layout is wrapped in
+ *   <ProtectedRoute> (must be logged in) and renders the Sidebar + an <Outlet/>
+ *   where each child page appears. /users adds an extra Admin-only guard.
+ * - Catch-all (*) sends unknown paths to /login.
+ */
 import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'

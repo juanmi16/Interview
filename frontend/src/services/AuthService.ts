@@ -1,3 +1,10 @@
+/**
+ * Authentication service. Wraps the /api/auth endpoints:
+ *  - login    → returns a JWT
+ *  - register → creates a user and returns a JWT (auto-login)
+ *  - me       → returns the current user, decoded from the token
+ * Exported as a singleton (`authService`) so any file can import it.
+ */
 import { BaseService } from "../services/BaseService"
 import { http } from "../services/http"
 import type { AuthUser, LoginRequest, RegisterRequest, RegisterResponse } from "../types/auth"

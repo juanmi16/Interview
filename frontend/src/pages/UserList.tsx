@@ -1,3 +1,8 @@
+/**
+ * Users admin page (Admin only). A server-paginated, searchable table of users.
+ * - Search is debounced; changing page/search re-fetches from the API (useEffect).
+ * - Rows are a memoized <UserRow>; edit opens <DetailUser>, delete opens <ConfirmDelete>.
+ */
 import { useEffect, useState } from 'react'
 import UserService from '../services/UsersService'
 import type { User } from '../types/user'

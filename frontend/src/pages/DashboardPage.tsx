@@ -1,3 +1,7 @@
+/**
+ * Dashboard — the landing page after login. Fetches aggregated user stats
+ * (GET /api/users/stats) and shows KPI cards + status/role breakdown bars.
+ */
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import UserService from '../services/UsersService'

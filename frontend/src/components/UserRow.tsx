@@ -1,3 +1,8 @@
+/**
+ * A single row of the users table. Wrapped in React.memo so it only re-renders
+ * when ITS props change — not on every parent (UserList) re-render.
+ * Purely presentational: it calls the onEdit/onDelete callbacks from the parent.
+ */
 import { memo } from 'react';
 import type { User } from '../types/user';
 

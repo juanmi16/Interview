@@ -1,3 +1,12 @@
+/**
+ * Shared Axios instance for the whole app.
+ *
+ * - baseURL points at the API, so calls use short paths like '/auth/login'.
+ * - Request interceptor: attaches the JWT (from localStorage) as a Bearer
+ *   header on EVERY outgoing request — so we never add it by hand.
+ * - Response interceptor: if any call returns 401 (expired/invalid token),
+ *   it clears the token and redirects to /login (global auto-logout).
+ */
 import axios from 'axios'
 
 export const http = axios.create({

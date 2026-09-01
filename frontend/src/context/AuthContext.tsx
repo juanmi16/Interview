@@ -1,3 +1,10 @@
+/**
+ * Auth context — the app's single source of truth for the logged-in user.
+ *
+ * Provides `token` + `user` (and their setters) to the whole tree. When the
+ * token changes, an effect calls /auth/me to load the user; no token clears it.
+ * Any component reads it with the `useAuth()` hook — no prop drilling.
+ */
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { AuthUser } from '../types/auth'
 import { authService } from '../services/AuthService'

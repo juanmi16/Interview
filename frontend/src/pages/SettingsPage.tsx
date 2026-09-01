@@ -1,3 +1,7 @@
+/**
+ * Settings — shows the logged-in user's profile (name, email, role, id),
+ * read from the global auth context. No fetch needed; the user is already there.
+ */
 import { useAuth } from '../context/AuthContext'
 
 export default function SettingsPage() {

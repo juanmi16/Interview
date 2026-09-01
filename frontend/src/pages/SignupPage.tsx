@@ -1,3 +1,8 @@
+/**
+ * Signup page. Controlled form that registers a NEW user (role "User"). On
+ * success the API returns a JWT, so we log the user in automatically and go
+ * straight to the dashboard.
+ */
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../components/Logo'

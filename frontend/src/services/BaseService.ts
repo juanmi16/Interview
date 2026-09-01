@@ -1,3 +1,10 @@
+/**
+ * Generic base class for the "service layer".
+ *
+ * Holds the reusable CRUD calls (getAll/getById/post/put/delete) against a
+ * REST resource. Concrete services (AuthService, UserService, ...) extend it
+ * and pass their endpoint, e.g. `super('users')`. `T` is the resource type.
+ */
 import { http } from '../services/http'
 
 export class BaseService<T> {

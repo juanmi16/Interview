@@ -1,3 +1,8 @@
+/**
+ * Reusable confirmation dialog (a modal). It is domain-agnostic: it only shows
+ * a message and, on confirm, calls the `onConfirm` callback the parent passes —
+ * so the same component works for deleting a user, a todo, anything.
+ */
 type Props = {
   message: string
   onConfirm: () => Promise<void> | void   // 🎓 el que EJECUTA (cualquier endpoint)

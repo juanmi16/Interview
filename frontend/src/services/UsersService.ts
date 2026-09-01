@@ -1,3 +1,7 @@
+/**
+ * User service. Wraps the admin /api/users endpoints: a paginated + searchable
+ * list, update, soft-delete, and the aggregated stats for the dashboard.
+ */
 import { BaseService } from "../services/BaseService"
 import { http } from "../services/http"
 import type { AuthUser } from "../types/auth"

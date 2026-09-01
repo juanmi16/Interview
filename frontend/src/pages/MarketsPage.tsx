@@ -1,3 +1,8 @@
+/**
+ * Markets — live crypto prices from Binance's public data API (no key).
+ * Fetches 24h candles for a few coins, draws an SVG area chart per coin, and
+ * auto-refreshes every 30s (the interval is cleared in the effect cleanup).
+ */
 import { useEffect, useState } from 'react'
 import Loader from '../components/Loader'
 

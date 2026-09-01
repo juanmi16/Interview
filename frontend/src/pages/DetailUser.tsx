@@ -1,3 +1,8 @@
+/**
+ * Edit-user modal. Receives a `user` + callbacks by props. Copies the user into
+ * local form state (props are read-only), lets the admin edit the fields, and on
+ * save calls the API then notifies the parent via onSaved so the list updates.
+ */
 import React, { useState } from 'react'
 import type { User } from '../types/user'
 import UserService from '../services/UsersService'

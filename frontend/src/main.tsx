@@ -1,3 +1,8 @@
+/**
+ * App entry point. Mounts React into #root and wraps the whole app in:
+ *  - <BrowserRouter>  enables client-side routing
+ *  - <AuthProvider>   makes the auth context (token + user) available everywhere
+ */
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'

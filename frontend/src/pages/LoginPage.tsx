@@ -1,3 +1,8 @@
+/**
+ * Login page. Split screen: a decorative "night sky" panel (Atenea's owl) on
+ * the left, and the login form on the right. On submit it calls authService.login,
+ * stores the token via the auth context, and navigates to the dashboard.
+ */
 import React from 'react';
 import { Link } from 'react-router-dom'
 import Logo from '../components/Logo'

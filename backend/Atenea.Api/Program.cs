@@ -28,6 +28,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //REPOSITORIES
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 
 
 
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
 
 
 //JWT Authentication

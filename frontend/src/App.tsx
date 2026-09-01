@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import UserList from './pages/UserList'
 import SettingsPage from './pages/SettingsPage'
 import MarketsPage from './pages/MarketsPage'
+import AlertsPage from './pages/AlertsPage'
 import DashboardLayout from './layouts/DashboardLayout'
 
 
@@ -28,6 +29,7 @@ function App() {
         } />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/markets" element={<MarketsPage />} />
+        <Route path="/alerts" element={<AlertsPage />} />
       </Route>
 
       {/* Catch-all al final */}

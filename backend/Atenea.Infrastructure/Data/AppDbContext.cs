@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     // Each DbSet = a table. The property name = the table name.
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
+    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
     // Extra model configuration (rules EF applies when creating the tables).
     protected override void OnModelCreating(ModelBuilder modelBuilder)
